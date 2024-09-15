@@ -12,5 +12,16 @@ namespace ConferencePlanner.GraphQL
         {
             return await dbContext.Speakers.AsNoTracking().ToListAsync(cancellationToken);
         }
+
+
+        [Query]
+        public static async Task<Speaker?> GetSpeakerAsync(
+            int id,
+            ISpeakerByIdDataLoader speakerById,
+            CancellationToken cancellationToken) {
+
+            return await speakerById.LoadAsync(id, cancellationToken);
+
+        }
     }
 }
